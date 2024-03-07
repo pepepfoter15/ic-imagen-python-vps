@@ -51,7 +51,7 @@ pipeline {
         stage ('SSH') {
             steps{
                 sshagent(credentials : ['pepe']) {
-                    sh 'ssh -o StrictHostKeyChecking=no yoshi@yoshi.pepepfoter15.es wget https://github.com/pepepfoter15/ic-imagen-python-vps/blob/main/docker-compose.yaml -O docker-compose.yaml'
+                    sh 'ssh -o StrictHostKeyChecking=no yoshi@yoshi.pepepfoter15.es wget https://raw.githubusercontent.com/pepepfoter15/ic-imagen-python-vps/main/docker-compose.yaml -O docker-compose.yaml'
                     sh 'ssh -o StrictHostKeyChecking=no yoshi@yoshi.pepepfoter15.es docker-compose up -d --force-recreate'
                 }
             }
