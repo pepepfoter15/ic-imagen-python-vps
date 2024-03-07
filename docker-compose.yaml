@@ -1,12 +1,12 @@
 version: '3'
 services:
   django-tutorial:
-    container_name: django
+    container_name: django_vps
     image: pepepfoter15/django:v1
     restart: always
     environment:
       ALLOWED_HOSTS: "*"
-      HOST: mariadb_dj
+      HOST: mariadb_dj_vps
       USER: django
       PASSWD: django
       BD: django
@@ -20,7 +20,7 @@ services:
     volumes:
       - django_logs:/var/log/django
   db_django:
-    container_name: mariadb_dj
+    container_name: mariadb_dj_vps
     image: mariadb:latest
     restart: always
     environment:
@@ -29,7 +29,7 @@ services:
       MARIADB_USER: django
       MARIADB_PASSWORD: django
     volumes:
-      - mariadb_dj:/var/lib/mysql
+      - mariadb_dj_vps:/var/lib/mysql
 volumes:
-    mariadb_dj:
+    mariadb_dj_vps:
     django_logs:
