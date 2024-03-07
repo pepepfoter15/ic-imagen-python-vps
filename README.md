@@ -1,1 +1,1 @@
-# imagen_practica_python
+# Imagen Python VPS
