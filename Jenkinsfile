@@ -49,6 +49,7 @@ pipeline {
             }
         }
         stage ('SSH') {
+            agent any 
             steps{
                 sshagent(credentials : ['pepe']) {
                     sh 'ssh -o StrictHostKeyChecking=no yoshi@yoshi.pepepfoter15.es wget https://raw.githubusercontent.com/pepepfoter15/ic-imagen-python-vps/main/docker-compose.yaml -O docker-compose.yaml'
