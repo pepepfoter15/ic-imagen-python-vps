@@ -1,0 +1,35 @@
+version: '3'
+services:
+  django-tutorial:
+    container_name: django
+    image: pepepfoter15/django:v1
+    restart: always
+    environment:
+      ALLOWED_HOSTS: "*"
+      HOST: mariadb_dj
+      USER: django
+      PASSWD: django
+      BD: django
+      DJANGO_SUPERUSER_PASSWORD: admin
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_EMAIL: admin@admin.org
+    ports:
+      - 8080:8000
+    depends_on:
+      - db_django
+    volumes:
+      - django_logs:/var/log/django
+  db_django:
+    container_name: mariadb_dj
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: django
+      MARIADB_USER: django
+      MARIADB_PASSWORD: django
+    volumes:
+      - mariadb_dj:/var/lib/mysql
+volumes:
+    mariadb_dj:
+    django_logs:
