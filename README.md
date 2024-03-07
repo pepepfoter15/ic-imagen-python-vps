@@ -1,1 +1,1 @@
-# Imagen Python VPS - Pepe Rodriguez Cañas
+# Imagen Python VPS - Pepe Rodriguez Cañas.
