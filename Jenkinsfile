@@ -1,13 +1,13 @@
 pipeline {
     agent any
-    agent {
-        docker {
-            image 'python:3'
-            args '-u root:root'
-        }
-    }
     stages {
         stage ('Clonacion del repo') {
+            agent {
+                docker {
+                    image 'python:3'
+                    args '-u root:root'
+                }
+            }
             steps {
                 git branch:'main', url:'https://github.com/pepepfoter15/ic-imagen-python.git'
             }
