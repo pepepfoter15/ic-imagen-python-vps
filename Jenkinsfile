@@ -2,7 +2,6 @@ pipeline {
     agent any
     stages {
         stage ('Test de django') { 
-            agent any
             agent { 
                 docker { 
                     image 'python:3'
