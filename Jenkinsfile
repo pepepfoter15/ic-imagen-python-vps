@@ -2,13 +2,13 @@ pipeline {
     agent none
     stages {
         stage ('Test de django') { 
-            agent { 
-                docker { 
+            agent {
+                docker {
                     image 'python:3'
                     args '-u root:root'
                 }
             }
-            stages {
+            steps {
                 stage('Clonacion del repo') {
                     steps {
                         git branch:'main',url:'https://github.com/pepepfoter15/ic-imagen-python.git'
@@ -16,7 +16,7 @@ pipeline {
                 }
                 stage('Instalacion de los paquetes requeridos') {
                     steps {
-                        sh 'pip install --root-user-action=ignore -r requirements.txt'
+                        sh 'pip install --user -r requirements.txt'
                     }
                 }
                 stage('Test del mismo') {
@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Subir imagen') {
             agent any
-            stages {
+            steps {
                 stage('Docker build y docker push') {
                     steps {
                         script {
@@ -50,7 +50,7 @@ pipeline {
         }
         stage ('SSH') {
             agent any 
-            steps{
+            steps {
                 sshagent(credentials : ['pepe']) {
                     sh 'ssh -o StrictHostKeyChecking=no yoshi@yoshi.pepepfoter15.es wget https://raw.githubusercontent.com/pepepfoter15/ic-imagen-python-vps/main/docker-compose.yaml -O docker-compose.yaml'
                     sh 'ssh -o StrictHostKeyChecking=no yoshi@yoshi.pepepfoter15.es docker compose up -d --force-recreate'
