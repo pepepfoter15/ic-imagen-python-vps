@@ -2,6 +2,7 @@ pipeline {
     agent any
     stages {
         stage ('Clonacion del repo') {
+            agent any
             agent {
                 docker {
                     image 'python:3'
