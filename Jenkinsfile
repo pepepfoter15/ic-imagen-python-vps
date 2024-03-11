@@ -1,26 +1,27 @@
 pipeline {
-    agent none
+    agent {
+        docker {
+            image 'python:3'
+            args '-u root:root'
+        }
+    }
     stages {
-        stage ('Test de django') { 
-            agent {
-                docker {
-                    image 'python:3'
-                    args '-u root:root'
-                }
-            }
+        stage ('Clonacion del repo') {
             steps {
-                script {
-                    git branch:'main', url:'https://github.com/pepepfoter15/ic-imagen-python.git'
-                }
-                script {
-                    sh 'pip install --user -r requirements.txt'
-                }
-                script {
-                    sh 'python3 manage.py test'
-                }
+                git branch:'main', url:'https://github.com/pepepfoter15/ic-imagen-python.git'
             }
         }
-        stage('Subir imagen') {
+        stage ('Instalacion de los paquetes requeridos') {
+            steps {
+                sh 'pip install --user -r requirements.txt'
+            }
+        }
+        stage ('Test del mismo') {
+            steps {
+                sh 'python3 manage.py test'
+            }
+        }
+        stage ('Subir imagen') {
             agent any
             steps {
                 script {
