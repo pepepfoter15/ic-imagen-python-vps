@@ -1,14 +1,14 @@
 pipeline {
     agent none
     stages {
-        stage ('Test de django') { 
-            agent { 
-                docker { 
+        stage('Test de django') {
+            agent {
+                docker {
                     image 'python:3'
                     args '-u root:root'
                 }
             }
-            stages {
+            steps {
                 stage('Clonacion del repo') {
                     steps {
                         git branch:'main',url:'https://github.com/pepepfoter15/ic-imagen-python.git'
@@ -23,12 +23,12 @@ pipeline {
                     steps {
                         sh 'python3 manage.py test'
                     }
-                } 
+                }
             }
         }
         stage('Subir imagen') {
             agent any
-            stages {
+            steps {
                 stage('Docker build y docker push') {
                     steps {
                         script {
